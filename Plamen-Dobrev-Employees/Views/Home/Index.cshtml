@@ -1,8 +1,52 @@
-﻿@{
+﻿@model List<ReturnData>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        <h2 class="mb-3">Upload Employees Project Dates</h2>
+        <form class="form-inline justify-content-center mb-3" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <input type="file" name="file" class="form-control-file" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        @if (ViewBag.Error != null)
+        {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </div>
+        }
+    </div>
+
+    @if (Model != null)
+    {
+        @if (Model.Count > 0)
+        {
+            <table id="employeesTogether" class="table table-striped border">
+                <thead>
+                    <tr class="table-secondary">
+                        <td>Employee #1</td>
+                        <td>Employee #2</td>
+                        <td>Project ID</td>
+                        <td>Days They Worked Together</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ReturnData rd in Model)
+                    {
+
+                        <tr>
+                            <td>@rd.Empl1ID</td>
+                            <td>@rd.Empl2ID</td>
+                            <td>@rd.ProjectID</td>
+                            <td>@rd.DaysWorked</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+    }
 </div>
